@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AbsenKu - Tec.Lukman</title>
+
+  <style>
+    :root {
+      --bg: #0b111a;
+      --card: #151c26;
+      --card2: #1d2531;
+      --text: #f3f7ff;
+      --muted: #9da9ba;
+      --blue: #1e90ff;
+      --cyan: #00d4ff;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --border: rgba(255,255,255,.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        radial-gradient(circle at top, #0b4b7a, #0b111a 50%, #070b10);
+      background-size: 40px 40px, 40px 40px, cover;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1100px, 94%);
+      margin: auto;
+      padding: 20px 0 50px;
+    }
+
+    .hero,
+    .card {
+      background: rgba(21, 28, 38, .94);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 48px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      background: rgba(30,144,255,.16);
+      border: 1px solid rgba(30,144,255,.4);
+      border-radius: 99px;
+      color: #b9dcff;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .clock {
+      background: linear-gradient(135deg, rgba(30,144,255,.18), rgba(0,212,255,.08));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .clock small {
+      color: var(--muted);
+    }
+
+    .clock .time {
+      font-size: 44px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .clock .date {
+      color: #c3d0df;
+      margin-top: 6px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: rgba(21,28,38,.94);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .stat small {
+      color: var(--muted);
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 32px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 13px;
+      margin-bottom: 6px;
+      color: #dbe7f5;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #202936;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0,212,255,.15);
+    }
+
+    select option {
+      color: black;
+      background: white;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btns {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 0;
+      padding: 13px 15px;
+      border-radius: 15px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:active {
+      transform: scale(.98);
+    }
+
+    .blue {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+    }
+
+    .green {
+      background: linear-gradient(135deg, #15803d, var(--green));
+    }
+
+    .yellow {
+      background: linear-gradient(135deg, #b45309, var(--yellow));
+    }
+
+    .red {
+      background: linear-gradient(135deg, #b91c1c, var(--red));
+    }
+
+    .gray {
+      background: linear-gradient(135deg, #374151, #4b5563);
+    }
+
+    .preview {
+      background: #202936;
+      border: 1px dashed rgba(255,255,255,.22);
+      padding: 14px;
+      border-radius: 16px;
+      margin-top: 16px;
+      color: #d7e8ff;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .export {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .report-wrap {
+      overflow-x: auto;
+      border-radius: 22px;
+    }
+
+    .report {
+      background: white;
+      color: #111827;
+      padding: 24px;
+      border-radius: 22px;
+      min-width: 850px;
+    }
+
+    .kop {
+      text-align: center;
+      border-bottom: 4px double #111827;
+      padding-bottom: 14px;
+      margin-bottom: 15px;
+    }
+
+    .kop h1 {
+      margin: 0;
+      font-size: 42px;
+    }
+
+    .kop p {
+      margin: 8px 0 0;
+      font-weight: bold;
+      color: #374151;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      border: 1px solid #d1d5db;
+      padding: 9px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eff6ff;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .chip-green {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .chip-blue {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .chip-yellow {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .chip-red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .mini {
+      padding: 7px 9px;
+      font-size: 12px;
+      border-radius: 9px;
+      margin: 2px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(80px);
+      background: #111827;
+      color: white;
+      padding: 13px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      opacity: 0;
+      transition: .3s;
+      z-index: 9999;
+      text-align: center;
+      min-width: 220px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media(max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .export {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 600px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .clock .time {
+        font-size: 36px;
+      }
+
+      .row,
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .hero {
+        padding: 18px;
+        border-radius: 20px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .hero,
+      .stats,
+      .form-card,
+      .toolbar,
+      .export,
+      .aksi,
+      .no-print {
+        display: none !important;
+      }
+
+      .container {
+        width: 100%;
+        padding: 0;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      .card {
+        box-shadow: none;
+        border: 0;
+        padding: 0;
+      }
+
+      .report-wrap {
+        overflow: visible;
+      }
+
+      .report {
+        min-width: 0;
+        border-radius: 0;
+      }
+
+      th.aksi,
+      td.aksi {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <section class="hero">
+      <span class="badge">✅ Aplikasi Absen Pribadi Teknisi</span>
+      <h1>AbsenKu</h1>
+      <p>
+        Aplikasi pencatatan absen pribadi untuk teknisi. Bisa digunakan untuk mencatat absen kantor fingerprint,
+        absen manual karena langsung ke lokasi, pandu user, remote user, on-site, maupun luar kota.
+      </p>
+      <p><b>Pembuat: Tec.Lukman</b></p>
+
+      <div class="clock">
+        <small>Waktu Sekarang</small>
+        <div class="time" id="jamSekarang">--:--:--</div>
+        <div class="date" id="tanggalSekarang">Memuat tanggal...</div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <small>Total Data</small>
+        <strong id="totalData">0</strong>
+      </div>
+      <div class="stat">
+        <small>Absen Kantor</small>
+        <strong id="totalKantor">0</strong>
+      </div>
+      <div class="stat">
+        <small>Manual / Pandu</small>
+        <strong id="totalManual">0</strong>
+      </div>
+      <div class="stat">
+        <small>Bulan Ini</small>
+        <strong id="totalBulanIni">0</strong>
+      </div>
+    </section>
+
+    <main class="layout">
+
+      <section class="card form-card">
+        <h2>📝 Input Absen</h2>
+
+        <input type="hidden" id="editId">
+
+        <div class="row">
+          <div>
+            <label>Tanggal</label>
+            <input type="date" id="tanggal">
+          </div>
+          <div>
+            <label>Batas Jam Kantor</label>
+            <input type="time" id="batasJam" value="09:10">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Jam Mulai / Absen Pagi</label>
+            <input type="time" id="jamPagi">
+          </div>
+          <div>
+            <label>Jam Fingerprint Kantor</label>
+            <input type="time" id="jamKantor">
+          </div>
+        </div>
+
+        <label>Jenis Absen</label>
+        <select id="jenis">
+          <option value="Kantor Fingerprint">Kantor Fingerprint</option>
+          <option value="Manual - Langsung Lokasi">Manual - Langsung Lokasi</option>
+          <option value="Manual - Pandu User">Manual - Pandu User</option>
+          <option value="Manual - Remote User">Manual - Remote User</option>
+          <option value="Dinas / Luar Kota">Dinas / Luar Kota</option>
+        </select>
+
+        <label>Lokasi Kerja</label>
+        <select id="lokasi">
+          <option value="Kantor">Kantor</option>
+          <option value="On-site">On-site</option>
+          <option value="Remote">Remote</option>
+          <option value="Luar Kota">Luar Kota</option>
+        </select>
+
+        <label>Nama Lokasi / User / Klien</label>
+        <input type="text" id="namaLokasi" placeholder="Contoh: Klinik Wetar / User Cabang A">
+
+        <label>Keterangan / Catatan</label>
+        <textarea id="catatan" placeholder="Contoh: Absen manual karena langsung pandu user sebelum ke kantor."></textarea>
+
+        <div class="preview">
+          <b>Preview Laporan:</b>
+          <div id="preview">-</div>
+        </div>
+
+        <div class="btns">
+          <button type="button" class="blue" id="btnSimpan">💾 Simpan Absen</button>
+          <button type="button" class="gray" id="btnReset">🔄 Reset Form</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>📋 Rekap Laporan</h2>
+
+        <div class="toolbar no-print">
+          <input type="text" id="cari" placeholder="Cari lokasi, jenis absen, catatan...">
+          <input type="month" id="filterBulan">
+        </div>
+
+        <div class="export no-print">
+          <button type="button" class="green" id="btnPdf">📄 Export PDF</button>
+          <button type="button" class="blue" id="btnGambar">🖼️ Download Gambar</button>
+          <button type="button" class="yellow" id="btnExcel">📊 Export Excel</button>
+          <button type="button" class="gray" id="btnPrint">🖨️ Print</button>
+          <button type="button" class="red" id="btnHapusSemua">🗑️ Hapus Semua</button>
+        </div>
+
+        <div class="report-wrap">
+          <div class="report" id="areaLaporan">
+            <div class="kop">
+              <h1>AbsenKu</h1>
+              <p>Nama Pegawai Teknisi : Lukman</p>
+            </div>
+
+            <div class="meta">
+              <div><b>Periode:</b> <span id="periode">Semua Data</span></div>
+              <div><b>Dibuat:</b> <span id="dibuat">-</span></div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Tanggal</th>
+                  <th>Jam Pagi</th>
+                  <th>Jenis</th>
+                  <th>Lokasi</th>
+                  <th>Nama Lokasi / User</th>
+                  <th>Absen Kantor</th>
+                  <th>Status</th>
+                  <th>Catatan / Format Laporan</th>
+                  <th class="aksi">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tbody">
+                <tr>
+                  <td colspan="10" class="empty">Belum ada data absen.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">Berhasil</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const NAMA = "Lukman";
+      const KEY = "ABSENKU_DATA_LUKMAN_FINAL_V3";
+
+      let data = [];
+
+      try {
+        data = JSON.parse(localStorage.getItem(KEY)) || [];
+      } catch (e) {
+        data = [];
+      }
+
+      function id(x) {
+        return document.getElementById(x);
+      }
+
+      function dua(n) {
+        return String(n).padStart(2, "0");
+      }
+
+      function hariIni() {
+        const d = new Date();
+        return d.getFullYear() + "-" + dua(d.getMonth() + 1) + "-" + dua(d.getDate());
+      }
+
+      function jamIni() {
+        const d = new Date();
+        return dua(d.getHours()) + ":" + dua(d.getMinutes());
+      }
+
+      function simpanLocal() {
+        localStorage.setItem(KEY, JSON.stringify(data));
+      }
+
+      function toast(pesan) {
+        id("toast").textContent = pesan;
+        id("toast").classList.add("show");
+
+        setTimeout(function () {
+          id("toast").classList.remove("show");
+        }, 2200);
+      }
+
+      function formatTanggal(tgl) {
+        if (!tgl) return "-";
+
+        const pecah = tgl.split("-");
+        return pecah[2] + "/" + pecah[1] + "/" + pecah[0];
+      }
+
+      function menit(jam) {
+        if (!jam) return null;
+
+        const p = jam.split(":");
+        return Number(p[0]) * 60 + Number(p[1]);
+      }
+
+      function statusAbsen(item) {
+        const jenis = item.jenis || "";
+        const batas = menit(item.batasJam || "09:10");
+        const jamKantor = menit(item.jamKantor);
+        const jamPagi = menit(item.jamPagi);
+
+        if (jenis.indexOf("Manual") >= 0) {
+          return {
+            teks: "Manual Dilaporkan",
+            cls: "chip-blue"
+          };
+        }
+
+        if (jenis.indexOf("Luar Kota") >= 0 || jenis.indexOf("Dinas") >= 0) {
+          return {
+            teks: "Dinas / Luar Kota",
+            cls: "chip-yellow"
+          };
+        }
+
+        if (jamKantor !== null) {
+          if (jamKantor <= batas) {
+            return {
+              teks: "Tepat Waktu",
+              cls: "chip-green"
+            };
+          }
+
+          return {
+            teks: "Lewat Batas",
+            cls: "chip-red"
+          };
+        }
+
+        if (jamPagi !== null && jamPagi <= batas) {
+          return {
+            teks: "Tercatat Pagi",
+            cls: "chip-green"
+          };
+        }
+
+        return {
+          teks: "Belum Lengkap",
+          cls: "chip-yellow"
+        };
+      }
+
+      function kalimat(item) {
+        let text = "Absen pagi " + NAMA + " " + (item.jamPagi || "-");
+        text += " - " + item.lokasi + " / " + item.jenis;
+
+        if (item.namaLokasi) {
+          text += " - " + item.namaLokasi;
+        }
+
+        if (item.jamKantor) {
+          text += " - ✅ Absen kantor " + item.jamKantor;
+        }
+
+        if (item.catatan) {
+          text += " - " + item.catatan;
+        }
+
+        return text;
+      }
+
+      function ambilForm(pakaiId) {
+        return {
+          id: pakaiId ? (id("editId").value || String(Date.now())) : "",
+          tanggal: id("tanggal").value,
+          batasJam: id("batasJam").value || "09:10",
+          jamPagi: id("jamPagi").value,
+          jamKantor: id("jamKantor").value,
+          jenis: id("jenis").value,
+          lokasi: id("lokasi").value,
+          namaLokasi: id("namaLokasi").value.trim(),
+          catatan: id("catatan").value.trim()
+        };
+      }
+
+      function updatePreview() {
+        const item = ambilForm(false);
+        id("preview").textContent = kalimat(item);
+      }
+
+      function resetForm() {
+        id("editId").value = "";
+        id("tanggal").value = hariIni();
+        id("batasJam").value = "09:10";
+        id("jamPagi").value = jamIni();
+        id("jamKantor").value = "";
+        id("jenis").value = "Kantor Fingerprint";
+        id("lokasi").value = "Kantor";
+        id("namaLokasi").value = "";
+        id("catatan").value = "";
+
+        updatePreview();
+      }
+
+      function simpanAbsen() {
+        const item = ambilForm(true);
+
+        if (!item.tanggal) {
+          toast("Tanggal wajib diisi.");
+          return;
+        }
+
+        if (!item.jamPagi && !item.jamKantor) {
+          toast("Isi jam pagi atau jam kantor dulu.");
+          return;
+        }
+
+        const editId = id("editId").value;
+
+        if (editId) {
+          data = data.map(function (x) {
+            return x.id === editId ? item : x;
+          });
+
+          toast("Data berhasil diperbarui.");
+        } else {
+          data.push(item);
+          toast("Data berhasil disimpan.");
+        }
+
+        data.sort(function (a, b) {
+          if (a.tanggal === b.tanggal) {
+            return (a.jamPagi || "").localeCompare(b.jamPagi || "");
+          }
+
+          return a.tanggal.localeCompare(b.tanggal);
+        });
+
+        simpanLocal();
+        resetForm();
+        render();
+      }
+
+      function editData(kode) {
+        const item = data.find(function (x) {
+          return x.id === kode;
+        });
+
+        if (!item) return;
+
+        id("editId").value = item.id;
+        id("tanggal").value = item.tanggal || "";
+        id("batasJam").value = item.batasJam || "09:10";
+        id("jamPagi").value = item.jamPagi || "";
+        id("jamKantor").value = item.jamKantor || "";
+        id("jenis").value = item.jenis || "Kantor Fingerprint";
+        id("lokasi").value = item.lokasi || "Kantor";
+        id("namaLokasi").value = item.namaLokasi || "";
+        id("catatan").value = item.catatan || "";
+
+        updatePreview();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+        toast("Mode edit aktif.");
+      }
+
+      function hapusData(kode) {
+        if (!confirm("Hapus data ini?")) return;
+
+        data = data.filter(function (x) {
+          return x.id !== kode;
+        });
+
+        simpanLocal();
+        render();
+        toast("Data dihapus.");
+      }
+
+      function dataFilter() {
+        const cari = id("cari").value.toLowerCase().trim();
+        const bulan = id("filterBulan").value;
+
+        return data.filter(function (item) {
+          const gabung = [
+            item.tanggal,
+            item.jamPagi,
+            item.jamKantor,
+            item.jenis,
+            item.lokasi,
+            item.namaLokasi,
+            item.catatan
+          ].join(" ").toLowerCase();
+
+          const cocokCari = !cari || gabung.indexOf(cari) >= 0;
+          const cocokBulan = !bulan || item.tanggal.indexOf(bulan) === 0;
+
+          return cocokCari && cocokBulan;
+        });
+      }
+
+      function renderStat() {
+        const sekarang = new Date();
+        const bulanIni = sekarang.getFullYear() + "-" + dua(sekarang.getMonth() + 1);
+
+        id("totalData").textContent = data.length;
+
+        id("totalKantor").textContent = data.filter(function (x) {
+          return x.jenis === "Kantor Fingerprint";
+        }).length;
+
+        id("totalManual").textContent = data.filter(function (x) {
+          return x.jenis.indexOf("Manual") >= 0;
+        }).length;
+
+        id("totalBulanIni").textContent = data.filter(function (x) {
+          return x.tanggal.indexOf(bulanIni) === 0;
+        }).length;
+      }
+
+      function renderPeriode() {
+        const bulan = id("filterBulan").value;
+
+        if (!bulan) {
+          id("periode").textContent = "Semua Data";
+          return;
+        }
+
+        const p = bulan.split("-");
+        const namaBulan = [
+          "Januari",
+          "Februari",
+          "Maret",
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Agustus",
+          "September",
+          "Oktober",
+          "November",
+          "Desember"
+        ];
+
+        id("periode").textContent = namaBulan[Number(p[1]) - 1] + " " + p[0];
+      }
+
+      function render() {
+        const tbody = id("tbody");
+        const list = dataFilter();
+
+        renderStat();
+        renderPeriode();
+
+        id("dibuat").textContent = new Date().toLocaleString("id-ID");
+
+        if (list.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" class="empty">Belum ada data absen.</td></tr>';
+          return;
+        }
+
+        let html = "";
+
+        list.forEach(function (item, i) {
+          const st = statusAbsen(item);
+          const lap = kalimat(item);
+
+          html += "<tr>";
+          html += "<td>" + (i + 1) + "</td>";
+          html += "<td>" + formatTanggal(item.tanggal) + "</td>";
+          html += "<td>" + (item.jamPagi || "-") + "</td>";
+          html += "<td>" + item.jenis + "</td>";
+          html += "<td>" + item.lokasi + "</td>";
+          html += "<td>" + (item.namaLokasi || "-") + "</td>";
+          html += "<td>" + (item.jamKantor || "-") + "</td>";
+          html += '<td><span class="chip ' + st.cls + '">' + st.teks + "</span></td>";
+          html += "<td><b>" + lap + "</b></td>";
+          html += '<td class="aksi">';
+          html += '<button type="button" class="mini yellow" data-edit="' + item.id + '">Edit</button>';
+          html += '<button type="button" class="mini red" data-hapus="' + item.id + '">Hapus</button>';
+          html += "</td>";
+          html += "</tr>";
+        });
+
+        tbody.innerHTML = html;
+
+        document.querySelectorAll("[data-edit]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            editData(btn.getAttribute("data-edit"));
+          });
+        });
+
+        document.querySelectorAll("[data-hapus]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            hapusData(btn.getAttribute("data-hapus"));
+          });
+        });
+      }
+
+      function exportExcelCsv() {
+        const list = dataFilter();
+
+        if (list.length === 0) {
+          toast("Tidak ada data untuk export.");
+          return;
+        }
+
+        let csv = "";
+        csv += "AbsenKu\n";
+        csv += "Nama Pegawai Teknisi : Lukman\n\n";
+        csv += "No,Tanggal,Jam Pagi,Jenis,Lokasi,Nama Lokasi/User,Absen Kantor,Status,Catatan,Format Laporan\n";
+
+        list.forEach(function (item, i) {
+          const st = statusAbsen(item);
+
+          const row = [
+            i + 1,
+            formatTanggal(item.tanggal),
+            item.jamPagi || "-",
+            item.jenis,
+            item.lokasi,
+            item.namaLokasi || "-",
+            item.jamKantor || "-",
+            st.teks,
+            item.catatan || "-",
+            kalimat(item)
+          ];
+
+          csv += row.map(function (isi) {
+            return '"' + String(isi).replace(/"/g, '""') + '"';
+          }).join(",") + "\n";
+        });
+
+        const blob = new Blob([csv], {
+          type: "text/csv;charset=utf-8;"
+        });
+
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "AbsenKu-Lukman.csv";
+        link.click();
+
+        toast("File Excel CSV berhasil dibuat.");
+      }
+
+      function exportPdf() {
+        toast("Pilih Simpan sebagai PDF di halaman print.");
+
+        setTimeout(function () {
+          window.print();
+        }, 600);
+      }
+
+      function downloadGambar() {
+        if (typeof html2canvas === "undefined") {
+          const s = document.createElement("script");
+          s.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+
+          s.onload = prosesGambar;
+
+          s.onerror = function () {
+            toast("Gagal load fitur gambar. Pastikan internet aktif.");
+          };
+
+          document.body.appendChild(s);
+        } else {
+          prosesGambar();
+        }
+      }
+
+      function prosesGambar() {
+        const area = id("areaLaporan");
+
+        const kolomAksi = document.querySelectorAll(".aksi");
+
+        kolomAksi.forEach(function (el) {
+          el.setAttribute("data-display-awal", el.style.display || "");
+          el.style.display = "none";
+        });
+
+        toast("Sedang membuat gambar...");
+
+        html2canvas(area, {
+          scale: 2,
+          backgroundColor: "#ffffff",
+          useCORS: true
+        }).then(function (canvas) {
+          const link = document.createElement("a");
+          link.download = "AbsenKu-Lukman.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+
+          kolomAksi.forEach(function (el) {
+            el.style.display = el.getAttribute("data-display-awal");
+            el.removeAttribute("data-display-awal");
+          });
+
+          toast("Gambar berhasil dibuat tanpa kolom Aksi.");
+        }).catch(function () {
+          kolomAksi.forEach(function (el) {
+            el.style.display = el.getAttribute("data-display-awal");
+            el.removeAttribute("data-display-awal");
+          });
+
+          toast("Gagal membuat gambar.");
+        });
+      }
+
+      function hapusSemua() {
+        if (data.length === 0) {
+          toast("Belum ada data.");
+          return;
+        }
+
+        if (!confirm("Yakin hapus semua data?")) return;
+
+        data = [];
+        simpanLocal();
+        render();
+
+        toast("Semua data dihapus.");
+      }
+
+      function updateJam() {
+        const d = new Date();
+
+        id("jamSekarang").textContent =
+          dua(d.getHours()) + ":" + dua(d.getMinutes()) + ":" + dua(d.getSeconds());
+
+        const hari = [
+          "Minggu",
+          "Senin",
+          "Selasa",
+          "Rabu",
+          "Kamis",
+          "Jumat",
+          "Sabtu"
+        ];
+
+        const bulan = [
+          "Januari",
+          "Februari",
+          "Maret",
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Agustus",
+          "September",
+          "Oktober",
+          "November",
+          "Desember"
+        ];
+
+        id("tanggalSekarang").textContent =
+          hari[d.getDay()] + ", " + dua(d.getDate()) + " " + bulan[d.getMonth()] + " " + d.getFullYear();
+      }
+
+      function pasangEvent() {
+        id("btnSimpan").addEventListener("click", simpanAbsen);
+
+        id("btnReset").addEventListener("click", resetForm);
+
+        id("btnPdf").addEventListener("click", exportPdf);
+
+        id("btnPrint").addEventListener("click", function () {
+          window.print();
+        });
+
+        id("btnExcel").addEventListener("click", exportExcelCsv);
+
+        id("btnGambar").addEventListener("click", downloadGambar);
+
+        id("btnHapusSemua").addEventListener("click", hapusSemua);
+
+        id("cari").addEventListener("input", render);
+
+        id("filterBulan").addEventListener("change", render);
+
+        [
+          "tanggal",
+          "batasJam",
+          "jamPagi",
+          "jamKantor",
+          "jenis",
+          "lokasi",
+          "namaLokasi",
+          "catatan"
+        ].forEach(function (namaId) {
+          id(namaId).addEventListener("input", updatePreview);
+          id(namaId).addEventListener("change", updatePreview);
+        });
+      }
+
+      pasangEvent();
+      resetForm();
+      render();
+      updateJam();
+
+      setInterval(updateJam, 1000);
+    });
+  </script>
+</body>
+</html>
